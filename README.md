@@ -17,3 +17,7 @@ Home-page: https://pandas.pydata.org
 Author:
 Author-email: The Pandas Development Team <pandas-dev@python.org>
 License: BSD 3-Clause License
+
+-------------------------------------
+
+Token size: 55907
