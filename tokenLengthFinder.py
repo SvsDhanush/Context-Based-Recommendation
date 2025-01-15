@@ -15,23 +15,6 @@ def calculate_token_size(prompt, co):
 
 
 
-# Function to call Cohere API for generating responses using `command-r`
-def get_cohere_chat_response(prompt, co):
-
-    calculate_token_size(prompt, co)
-
-    response = co.chat(
-        model="command-r-plus-08-2024",  # Updated to use the correct model
-        messages=[{"role": "user", "content": prompt}]
-    )
-    # Extract the generated content from the response object
-    if response.message and response.message.content:
-        # Combine all content items into a single string
-        return "\n".join(item.text.strip() for item in response.message.content)
-    else:
-        raise ValueError("No content generated in the response.")
-
-
 # Load CSV data
 def load_products(file_path):
     data = pd.read_csv(file_path)
@@ -44,7 +27,8 @@ def load_products(file_path):
 
 # Filter products based on user-selected category
 def filter_by_category(products, category):
-    filtered_products = products[products["parent_category"].str.lower() == category.lower()]
+    # filtered_products = products[products["parent_category"].str.lower() == category.lower()]
+    filtered_products = products
     if filtered_products.empty:
         print(f"No products found in the category '{category}'. Please try again.")
         return None
@@ -82,7 +66,7 @@ def filter_products_with_explanations(products, user_description, category, co):
       Price: ...
       Suitability: (Explain briefly why this product meets the user's needs)
     """
-    response = get_cohere_chat_response(prompt_template, co)
+    response = calculate_token_size(prompt_template, co)
     return response
 
 # Main function
